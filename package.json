@@ -9,6 +9,8 @@
   "dependencies": {
     "express": "x",
     "gm": "x",
+    "knox": "x",
+    "mime": "x",
     "request": "x",
     "underscore": "x"
   }
