@@ -18,11 +18,12 @@ app.enable('strict routing');
 app.disable('x-powered-by');
 
 // Requests should be in the form /path/to/image(-job-name).extension
-app.get(/(\/.*?)(?:-(.*?))?(\..*)/, function (req, res, next) {
+app.get(new RegExp(config.pattern), function (req, res, next) {
   var base = req.params[0];
-  var type = req.params[1];
+  var key = req.params[1];
+  var size = config.sizes[key];
   var ext = req.params[2];
-  if (type != null && !config.types[type]) return next(404);
+  if (key != null && !size) return next(404);
   request({
     url: config.origin + base + ext,
 
@@ -30,8 +31,9 @@ app.get(/(\/.*?)(?:-(.*?))?(\..*)/, function (req, res, next) {
     // `Buffer` instance.
     encoding: null
   }, function (er, imgRes, body) {
+    if (er) return next(er);
     if (imgRes.statusCode !== 200) return next(imgRes.statusCode);
-    _.reduce(config.types[type], function (image, command) {
+    _.reduce(size, function (image, command) {
       return _.reduce(command, function (image, args, key) {
         return image[key].apply(image, args);
       }, image);
