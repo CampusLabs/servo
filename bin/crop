@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-
-require('..')(require(process.argv[2] || process.cwd() + '/crop'));

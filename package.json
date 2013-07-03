@@ -1,13 +1,13 @@
 {
-  "name": "crop",
-  "version": "0.0.0",
+  "name": "derriere",
+  "version": "0.0.1",
   "author": "Casey Foster <c@sey.me>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/orgsync/crop"
+    "url": "https://github.com/orgsync/derriere"
   },
   "bin": {
-    "crop": "bin/crop"
+    "derriere": "bin/derriere"
   },
   "dependencies": {
     "async": "x",
