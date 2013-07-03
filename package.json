@@ -10,6 +10,7 @@
     "crop": "bin/crop"
   },
   "dependencies": {
+    "async": "x",
     "express": "x",
     "gm": "x",
     "knox": "x",

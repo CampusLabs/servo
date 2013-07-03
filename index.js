@@ -11,16 +11,18 @@ module.exports = function (config) {
   // Don't waste bytes on an extra header.
   app.disable('x-powered-by');
 
-  // Parse the request body for POSTing files.
+  // Helpful vendor middleware.
+  app.use(express.compress());
   app.use(express.bodyParser());
+  app.use(express.methodOverride());
 
-  // PUTing to root uploads files.
+  // Upload posted files to the S3 bucket.
   app.post('/', require('./lib/upload-files'));
 
   // Requests should be in the form /path/to/image(-job-name).extension
   app.get(
-    new RegExp(config.pattern),
-    require('./lib/check-user-agent'),
+    /^(\/.*?)(?:-(.*?))?(\..*)?$/,
+    //require('./lib/check-user-agent'),
     require('./lib/serve-file')
   );
 
