@@ -2,6 +2,20 @@
 
 An image resizing service to sit **behind** a dynamic cache (like CloudFront).
 
+## Install
+
+Install Derriere with npm.
+
+```bash
+npm install -g derriere
+```
+
+Set up your configuration (see below) and simply run
+
+```bash
+derriere path/to/config
+```
+
 ## Config
 
 Derriere uses a JS/JSON file for configuration. By default, Derriere will look
