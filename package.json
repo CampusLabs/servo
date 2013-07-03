@@ -6,6 +6,9 @@
     "type": "git",
     "url": "https://github.com/orgsync/crop"
   },
+  "bin": {
+    "crop": "bin/crop"
+  },
   "dependencies": {
     "express": "x",
     "gm": "x",
