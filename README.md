@@ -1,28 +1,28 @@
-# Derriere
+# Servo
 
 An image resizing service to sit **behind** a dynamic cache (like CloudFront).
 
 ## Install
 
-Install Derriere with npm.
+Install Servo with npm.
 
 ```bash
-npm install -g derriere
+npm install -g servo
 ```
 
 Set up your configuration (see below) and simply run
 
 ```bash
-derriere path/to/config
+servo path/to/config
 ```
 
 ## Config
 
-Derriere uses a JS/JSON file for configuration. By default, Derriere will look
-for `process.cwd() + '/derriere', but you can specifiy another location by
-passing it as the first argument to the executable.
+Servo uses a JS/JSON file for configuration. By default, Servo will look for
+`process.cwd() + '/servo', but you can specifiy another location by passing
+it as the first argument to the executable.
 
-**derriere.json**
+**servo.json**
 ```json
 {
   "port": 80,
@@ -46,7 +46,7 @@ passing it as the first argument to the executable.
   "bucket": "some-s3-bucket",
   "accessKeyId": "XXX",
   "secretAccessKey": "XXX",
-  "uploadKey": "shared key between derriere and publishing interface",
+  "uploadKey": "shared key between servo and publishing interface",
   "sizes": {
     "profile": [
       {"strip": []},

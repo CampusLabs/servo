@@ -1,13 +1,13 @@
 {
-  "name": "derriere",
+  "name": "servo",
   "version": "0.0.1",
   "author": "Casey Foster <c@sey.me>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/orgsync/derriere"
+    "url": "https://github.com/orgsync/servo"
   },
   "bin": {
-    "derriere": "bin/derriere"
+    "servo": "bin/servo"
   },
   "dependencies": {
     "async": "x",
