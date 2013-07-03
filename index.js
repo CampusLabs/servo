@@ -21,7 +21,7 @@ module.exports = function (config) {
 
   // Requests should be in the form /path/to/image(-job-name).extension
   app.get(
-    /^(\/.*?)(?:-(.*?))?(\..*)?$/,
+    /^(\/.*?)(?:-(.*?))?(?:\.(.*))?$/,
     require('./lib/check-user-agent'),
     require('./lib/serve-file')
   );
