@@ -22,20 +22,30 @@ Servo uses a JS/JSON file for configuration. By default, Servo will look for
 `process.cwd() + '/servo', but you can specifiy another location by passing
 it as the first argument to the executable.
 
-**servo.json**
+**sample servo.json**
 ```json
 {
+  // The port servo will listen for requests on.
   "port": 80,
+
+  // Headers that will be appended on GET responses and also on PUT requests to
+  // the S3 bucket.
   "headers": {
     "Cache-Control": "max-age=315360000",
     "x-amz-acl": "public-read"
   },
+
+  // Hosts that point to the cloudfront endpoint. Requests on servo that are not
+  // from cloudfront will be redirected randomly to one of these hosts.
+
   "hosts": [
     "cdn0.example.com",
     "cdn1.example.com",
     "cdn2.example.com",
     "cdn3.example.com"
   ],
+
+  // A whitelist of coercible extensions.
   "extensions": [
     "jpg",
     "png",
@@ -43,10 +53,20 @@ it as the first argument to the executable.
     "css",
     "js"
   ],
+
+  // The S3 bucket to be used.
   "bucket": "some-s3-bucket",
+
+  // AWS Access Key ID.
   "accessKeyId": "XXX",
+
+  // AWS Secret Access Key.
   "secretAccessKey": "XXX",
-  "uploadKey": "shared key between servo and publishing interface",
+
+  // A shared key between servo and a publishing app.
+  "apiKey": "XXX",
+
+  // GraphicsMagick routines to put an image through when specified in the URL.
   "sizes": {
     "profile": [
       {"strip": []},
@@ -60,4 +80,80 @@ it as the first argument to the executable.
     ]
   }
 }
+```
+
+## Requests
+
+Servo responds to a few requests.
+
+---
+
+**request**
+```
+GET /path/to/resource[-size][.extension]
+```
+
+No authentication is required for this request. If specific image at the
+requested size and extension has yet to be generated, it will be generated on
+the fly, otherwise the cloudfront cache should catch it.
+
+**response**
+```
+(requested resource or empty body and error status code)
+```
+
+---
+
+**request**
+```
+PUT /[explicit route]
+X-Api-Key: XXX
+
+imgA=@imgA.jpg
+imgB=@imgB.gif
+...
+```
+
+An API Key is required in the header of the request to PUT resources into S3.
+Bulk file uploads are allowed, but only if an explicit route is not specified.
+When an explicit route is not specified, files are saved as their MD5 value. The
+resource mime type is extracted from the file's extension and stored as a header
+in S3.
+
+**response**
+```json
+{
+  "imgA": {
+    "path": "/abc123...",
+    "name": "imgA.jpg",
+    "size": 1234,
+    "type": "image/jpeg",
+    "width": 100,
+    "height": 200
+  },
+  "imgB": {
+    "path": "/789xyz...",
+    "name": "imgB.gif",
+    "size": 5432,
+    "type": "image/gif",
+    "width": 300,
+    "height": 150
+  },
+  ...
+}
+```
+
+---
+
+**request**
+```
+DELETE /path/to/resource
+X-Api-Key: XXX
+```
+
+An API Key is required in the header of the request to DELETE resources in S3. The request simply returns a 200 status and empty JSON object on success.
+
+**response**
+```json
+{}
 ```
