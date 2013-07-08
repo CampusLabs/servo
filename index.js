@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var knox = require('knox');
 
 module.exports = function (config) {
   var app = express();
@@ -8,7 +9,12 @@ module.exports = function (config) {
   // Store config on the app instance for global use.
   app.config = config;
 
-  app.listen(config.port);
+  // Configure knox.
+  app.s3 = knox.createClient({
+    key: config.accessKeyId,
+    secret: config.secretAccessKey,
+    bucket: config.bucket
+  });
 
   // Don't waste bytes on an extra header.
   app.disable('x-powered-by');
@@ -19,15 +25,21 @@ module.exports = function (config) {
   app.use(express.methodOverride());
 
   // Upload posted files to the S3 bucket.
-  app.post('/', require('./lib/upload-files'));
+  app.put('*', require('./lib/authorize'), require('./lib/update-files'));
 
-  // Requests should be in the form /path/to/image(-job-name).extension
+  // Delete a file from the S3 bucket.
+  app.del('*', require('./lib/authorize'), require('./lib/delete-file'));
+
+  // Requests should be in the form /path/to/image(-job-name)(.extension)
   app.get(
     /^(\/.*?)(?:-(.*?))?(?:\.(.*))?$/,
-    require('./lib/check-user-agent'),
-    require('./lib/serve-file')
+    //require('./lib/check-user-agent'),
+    require('./lib/read-file')
   );
 
   // Ensure bad responses aren't cached.
-  app.use(require('./lib/error-handler'));
+  app.use(require('./lib/handle-error'));
+
+  // Start listening for requests.
+  app.listen(config.port);
 };
