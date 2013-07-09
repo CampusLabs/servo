@@ -102,8 +102,7 @@ PUT /[explicit route]
 X-Api-Key: XXX
 
 file=@imgA.jpg OR path=/s3path
-routine=strip;scale:100,100;... (optional)
-...
+routine=strip;scale:100,100 (optional)
 ```
 
 An API Key is required in the header of the request to PUT resources into S3.
