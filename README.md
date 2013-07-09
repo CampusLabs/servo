@@ -67,7 +67,7 @@ it as the first argument to the executable.
   "apiKey": "XXX",
 
   // GraphicsMagick routines to put an image through when specified in the URL.
-  "sizes": {
+  "routines": {
     "profile": [
       {"strip": []},
       {"scale": [200, 200, "^"]},
