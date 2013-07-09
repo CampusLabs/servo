@@ -82,7 +82,7 @@ Servo responds to a few requests.
 
 **request**
 ```
-GET /path/to/resource[-size][.extension]
+GET /path/to/resource[-routine][.extension]
 ```
 
 No authentication is required for this request. If specific image at the
