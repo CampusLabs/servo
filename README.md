@@ -68,16 +68,8 @@ it as the first argument to the executable.
 
   // GraphicsMagick routines to put an image through when specified in the URL.
   "routines": {
-    "profile": [
-      {"strip": []},
-      {"scale": [200, 200, "^"]},
-      {"gravity": ["Center"]},
-      {"extent": [200, 200]}
-    ],
-    "100x100": [
-      {"strip": []},
-      {"resize": [100, 100]}
-    ]
+    "profile": "scale:200,200,^;gravity:Center;extent:200,200;strip",
+    "100x100": "resize:100,100;strip"
   }
 }
 ```
@@ -109,37 +101,25 @@ the fly, otherwise the cloudfront cache should catch it.
 PUT /[explicit route]
 X-Api-Key: XXX
 
-imgA=@imgA.jpg
-imgB=@imgB.gif
+file=@imgA.jpg OR path=/s3path
+routine=strip;scale:100,100;... (optional)
 ...
 ```
 
 An API Key is required in the header of the request to PUT resources into S3.
-Bulk file uploads are allowed, but only if an explicit route is not specified.
 When an explicit route is not specified, files are saved as their MD5 value. The
 resource mime type is extracted from the file's extension and stored as a header
-in S3.
+in S3. An optional `routine` option may be added to put the image through a
+series of GraphicsMagick operations before uploading.
 
 **response**
 ```json
 {
-  "imgA": {
-    "path": "/abc123...",
-    "name": "imgA.jpg",
-    "size": 1234,
-    "type": "image/jpeg",
-    "width": 100,
-    "height": 200
-  },
-  "imgB": {
-    "path": "/789xyz...",
-    "name": "imgB.gif",
-    "size": 5432,
-    "type": "image/gif",
-    "width": 300,
-    "height": 150
-  },
-  ...
+  "path": "/md5hashorexplicitroute...",
+  "size": 1234,
+  "type": "image/jpeg",
+  "width": 100,
+  "height": 200
 }
 ```
 

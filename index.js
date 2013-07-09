@@ -24,7 +24,7 @@ module.exports = function (config) {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 
-  // Upload posted files to the S3 bucket.
+  // Upload files to the S3 bucket.
   app.put('*', require('./lib/authorize'), require('./lib/update-files'));
 
   // Delete a file from the S3 bucket.
@@ -33,7 +33,7 @@ module.exports = function (config) {
   // Requests should be in the form /path/to/image(-job-name)(.extension)
   app.get(
     /^(\/.*?)(?:-(.*?))?(?:\.(.*))?$/,
-    require('./lib/check-user-agent'),
+    //require('./lib/check-user-agent'),
     require('./lib/read-file')
   );
 
