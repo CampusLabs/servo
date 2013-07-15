@@ -1,11 +1,12 @@
 {
   "name": "servo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Casey Foster <c@sey.me>",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgsync/servo"
   },
+  "license": "MIT",
   "bin": {
     "servo": "bin/servo"
   },
