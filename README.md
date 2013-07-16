@@ -64,7 +64,7 @@ it as the first argument to the executable.
   "secretAccessKey": "XXX",
 
   // A shared key between servo and a publishing app.
-  "apiKey": "XXX",
+  "servoKey": "XXX",
 
   // GraphicsMagick routines to put an image through when specified in the URL.
   "routines": {
@@ -99,13 +99,13 @@ the fly, otherwise the cloudfront cache should catch it.
 **request**
 ```
 PUT /[explicit route]
-X-Api-Key: XXX
+X-Servo-Key: XXX
 
 file=@imgA.jpg OR path=/s3path
 routine=strip;scale:100,100 (optional)
 ```
 
-An API Key is required in the header of the request to PUT resources into S3.
+A Servo Key is required in the header of the request to PUT resources into S3.
 When an explicit route is not specified, files are saved as their MD5 value. The
 resource mime type is extracted from the file's extension and stored as a header
 in S3. An optional `routine` option may be added to put the image through a
@@ -127,10 +127,10 @@ series of GraphicsMagick operations before uploading.
 **request**
 ```
 DELETE /path/to/resource
-X-Api-Key: XXX
+X-Servo-Key: XXX
 ```
 
-An API Key is required in the header of the request to DELETE resources in S3. The request simply returns a 200 status and empty JSON object on success.
+A Servo Key is required in the header of the request to DELETE resources in S3. The request simply returns a 200 status and empty JSON object on success.
 
 **response**
 ```json
