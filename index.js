@@ -27,11 +27,14 @@ module.exports = function (config) {
   // Enable CORS on demand.
   if (config.cors) app.use(require('./lib/cors'));
 
+  // Set req.authorized based on servo key.
+  app.use(require('./lib/authorize'));
+
   // Upload files to the S3 bucket.
-  app.put('*', require('./lib/authorize'), require('./lib/update-files'));
+  app.put('*', require('./lib/update-files'));
 
   // Delete a file from the S3 bucket.
-  app.del('*', require('./lib/authorize'), require('./lib/delete-file'));
+  app.del('*', require('./lib/delete-file'));
 
   // Requests should be in the form /path/to/image(-job-name)(.extension)
   app.get(

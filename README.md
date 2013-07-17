@@ -31,8 +31,7 @@ it as the first argument to the executable.
   // Headers that will be appended on GET responses and also on PUT requests to
   // the S3 bucket.
   "headers": {
-    "Cache-Control": "max-age=315360000",
-    "x-amz-acl": "public-read"
+    "Cache-Control": "max-age=315360000"
   },
 
   // Hosts that point to the cloudfront endpoint. Requests on servo that are not
@@ -49,9 +48,7 @@ it as the first argument to the executable.
   "extensions": [
     "jpg",
     "png",
-    "gif",
-    "css",
-    "js"
+    "gif"
   ],
 
   // The S3 bucket to be used.
@@ -121,7 +118,8 @@ series of GraphicsMagick operations before uploading.
   "size": 1234,
   "type": "image/jpeg",
   "width": 100,
-  "height": 200
+  "height": 200,
+  "name": "imgA.jpg"
 }
 ```
 
