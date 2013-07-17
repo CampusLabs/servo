@@ -70,7 +70,10 @@ it as the first argument to the executable.
   "routines": {
     "profile": "scale:200,200,^;gravity:Center;extent:200,200;strip",
     "100x100": "resize:100,100;strip"
-  }
+  },
+
+  // Enable/disable CORS headers.
+  "cors": true
 }
 ```
 

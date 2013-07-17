@@ -24,6 +24,9 @@ module.exports = function (config) {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 
+  // Enable CORS on demand.
+  if (config.cors) app.use(require('./lib/cors'));
+
   // Upload files to the S3 bucket.
   app.put('*', require('./lib/authorize'), require('./lib/update-files'));
 
