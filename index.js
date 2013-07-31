@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var express = require('express');
 var knox = require('knox');
 
@@ -47,5 +48,7 @@ module.exports = function (config) {
   app.use(require('./lib/handle-error'));
 
   // Start listening for requests.
-  app.listen(config.port);
+  var server = app.listen(config.port);
+
+  process.on('SIGTERM', _.bind(server.close, server));
 };
