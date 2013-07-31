@@ -70,7 +70,14 @@ it as the first argument to the executable.
   },
 
   // Enable/disable CORS headers.
-  "cors": true
+  "cors": true,
+
+  // Refuse to upload files over n bytes.
+  "maxFileSize": 12345,
+
+  // Automatically resize images to fit in an n by n box if they have a
+  // dimension that is larger than n.
+  "maxImageDimension": 2000
 }
 ```
 
