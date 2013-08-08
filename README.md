@@ -13,14 +13,13 @@ npm install -g servo
 Set up your configuration (see below) and simply run
 
 ```bash
-servo path/to/config
+SERVO_CONFIG=/my/config.js servo
 ```
 
 ## Config
 
-Servo uses a JS/JSON file for configuration. By default, Servo will look for
-`process.cwd() + '/servo', but you can specifiy another location by passing
-it as the first argument to the executable.
+Servo uses a JS/JSON file for configuration that needs to be passed in through a
+`SERVO_CONFIG` environment variable.
 
 **sample servo.json**
 ```json
