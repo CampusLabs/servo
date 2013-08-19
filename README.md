@@ -117,15 +117,15 @@ routine=strip;scale:100,100 (optional)
 ```
 
 A Servo Key is required in the header of the request to PUT resources into S3.
-When an explicit route is not specified, files are saved as their MD5 value. The
-resource mime type is extracted from the file's extension and stored as a header
-in S3. An optional `routine` option may be added to put the image through a
-series of GraphicsMagick operations before uploading.
+When an explicit route is not specified, files are saved as their hashed value.
+The resource mime type is extracted from the file's extension and stored as a
+header in S3. An optional `routine` option may be added to put the image through
+a series of GraphicsMagick operations before uploading.
 
 **response**
 ```json
 {
-  "path": "/md5hashorexplicitroute...",
+  "path": "/hashorexplicitroute...",
   "size": 1234,
   "type": "image/jpeg",
   "width": 100,
