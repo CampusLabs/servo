@@ -76,7 +76,12 @@ Servo uses a JS/JSON file for configuration that needs to be passed in through a
 
   // Automatically resize images to fit in an n by n box if they have a
   // dimension that is larger than n.
-  "maxImageDimension": 2000
+  "maxImageDimension": 2000,
+
+  // Specify a hash algorithm to use for each file.
+  // Run `node -e "console.log(require('crypto').getHashes())"` to see a list of
+  // algorithms your machine supports.
+  hashAlgorithm: 'sha512'
 }
 ```
 
