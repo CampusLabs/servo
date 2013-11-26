@@ -19,7 +19,8 @@ app.disable('x-powered-by');
 
 // Helpful vendor middleware.
 app.use(express.compress());
-app.use(express.bodyParser());
+app.use(express.urlencoded());
+app.use(express.json());
 app.use(express.methodOverride());
 
 // Enable CORS on demand.
