@@ -3,17 +3,17 @@
 var _ = require('underscore');
 var config = require('./config');
 var express = require('express');
-var knox = require('knox');
+var AWS = require('aws-sdk');
 var formidable = require('formidable');
 
 var app = express();
 
-// Configure knox.
-app.s3 = knox.createClient({
-  key: config.accessKeyId,
-  secret: config.secretAccessKey,
-  bucket: config.bucket
+// Configure AWS.
+AWS.config.update({
+  accessKeyId: config.accessKeyId,
+  secretAccessKey: config.secretAccessKey,
 });
+app.s3 = new AWS.S3({apiVersion: config.apiVersion});
 
 // Don't waste bytes on an extra header.
 app.disable('x-powered-by');
@@ -29,11 +29,17 @@ app.use(function (req, res, next) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (er, fields, files) {
     if (er) return next(er);
-    console.log(fields);
     _.extend(req.body, fields);
     req.files = files;
     next();
   });
+});
+
+// Store the s3Key for the request path in req.s3Key. This is essentially the
+// path sans the leading slash.
+app.use(function (req, res, next) {
+  req.s3Key = req.path.slice(1);
+  next();
 });
 
 // Enable CORS on demand.

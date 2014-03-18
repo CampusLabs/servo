@@ -27,11 +27,8 @@ Servo uses a JS/JSON file for configuration that needs to be passed in through a
   // The port servo will listen for requests on.
   "port": 80,
 
-  // Headers that will be appended on GET responses and also on PUT requests to
-  // the S3 bucket.
-  "headers": {
-    "Cache-Control": "max-age=315360000"
-  },
+  // Set the cache-control header to set the life of objects.
+  "cacheControl": "max-age=315360000"
 
   // Hosts that point to the cloudfront endpoint. Requests on servo that are not
   // from cloudfront will be redirected randomly to one of these hosts.
@@ -145,6 +142,6 @@ X-Servo-Key: XXX
 A Servo Key is required in the header of the request to DELETE resources in S3. The request simply returns a 200 status and empty JSON object on success.
 
 **response**
-```json
-{}
+```
+204 No Content
 ```
