@@ -4,6 +4,7 @@ var _ = require('underscore');
 var config = require('./config');
 var express = require('express');
 var knox = require('knox');
+var formidable = require('formidable');
 
 var app = express();
 
@@ -22,6 +23,18 @@ app.use(express.compress());
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.methodOverride());
+
+// Replacement for connect.multipart()
+app.use(function (req, res, next) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (er, fields, files) {
+    if (er) return next(er);
+    console.log(fields);
+    _.extend(req.body, fields);
+    req.files = files;
+    next();
+  });
+});
 
 // Enable CORS on demand.
 if (config.cors) app.use(require('./lib/cors'));

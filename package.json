@@ -13,6 +13,7 @@
   "dependencies": {
     "async": "x",
     "express": "x",
+    "formidable": "x",
     "gm": "x",
     "knox": "x",
     "mime": "x",
