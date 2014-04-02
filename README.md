@@ -109,7 +109,7 @@ the fly, otherwise the cloudfront cache should catch it.
 PUT /[explicit route]
 X-Servo-Key: XXX
 
-file=@imgA.jpg OR path=/s3path
+(file=@imgA.jpg) OR (key=s3Key [bucket=orgsync-test])
 routine=strip;scale:100,100 (optional)
 ```
 
@@ -122,7 +122,8 @@ a series of GraphicsMagick operations before uploading.
 **response**
 ```json
 {
-  "path": "/hashorexplicitroute...",
+  "bucket": "orgsync-test"
+  "key": "hashorexplicitroute...",
   "size": 1234,
   "type": "image/jpeg",
   "width": 100,
