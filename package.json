@@ -11,12 +11,12 @@
     "servo": "bin/servo"
   },
   "dependencies": {
-    "async": "x",
-    "aws-sdk": "x",
-    "express": "x",
-    "formidable": "x",
-    "gm": "x",
-    "mime": "x",
-    "underscore": "x"
+    "async": "0.2.10",
+    "aws-sdk": "2.0.0-rc11",
+    "express": "3.4.8",
+    "formidable": "1.0.14",
+    "gm": "1.14.2",
+    "mime": "1.2.11",
+    "underscore": "1.6.0"
   }
 }
