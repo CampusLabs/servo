@@ -11,9 +11,9 @@
     "servo": "bin/servo"
   },
   "dependencies": {
-    "async": "0.2.10",
-    "aws-sdk": "2.0.0-rc11",
-    "express": "3.4.8",
+    "async": "0.6.2",
+    "aws-sdk": "2.0.0-rc13",
+    "express": "3.5.1",
     "formidable": "1.0.14",
     "gm": "1.14.2",
     "mime": "1.2.11",
