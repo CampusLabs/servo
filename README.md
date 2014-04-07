@@ -91,11 +91,13 @@ Servo responds to a few requests.
 **request**
 ```
 GET /path/to/resource[-routine][.extension]
+  [?servoKey=servoKey[&ttl=seconds][&filename=contentDispositionFilename]]
 ```
 
 No authentication is required for this request. If specific image at the
 requested size and extension has yet to be generated, it will be generated on
-the fly, otherwise the cloudfront cache should catch it.
+the fly, otherwise the cloudfront cache should catch it. If authenticated, will
+redirect to a signed URL for the requested resource.
 
 **response**
 ```
@@ -107,9 +109,9 @@ the fly, otherwise the cloudfront cache should catch it.
 **request**
 ```
 PUT /[explicit route]
-X-Servo-Key: XXX
 
-(file=@imgA.jpg) OR (key=s3Key [bucket=orgsync-test])
+servoKey=servoKey
+(file=@imgA.jpg) OR (key=s3Key [bucket=default-bucket])
 routine=strip;scale:100,100 (optional)
 ```
 
@@ -137,7 +139,8 @@ a series of GraphicsMagick operations before uploading.
 **request**
 ```
 DELETE /path/to/resource
-X-Servo-Key: XXX
+
+servoKey=servoKey
 ```
 
 A Servo Key is required in the header of the request to DELETE resources in S3. The request simply returns a 200 status and empty JSON object on success.
