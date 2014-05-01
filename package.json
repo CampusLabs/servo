@@ -1,15 +1,12 @@
 {
   "name": "servo",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Casey Foster <c@sey.me>",
   "repository": {
     "type": "git",
     "url": "https://github.com/orgsync/servo"
   },
   "license": "MIT",
-  "bin": {
-    "servo": "bin/servo"
-  },
   "dependencies": {
     "async": "0.6.2",
     "aws-sdk": "2.0.0-rc13",
