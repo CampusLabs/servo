@@ -22,7 +22,7 @@ Servo uses a JS/JSON file for configuration that needs to be passed in through a
 `SERVO_CONFIG` environment variable.
 
 **sample servo.json**
-```json
+```javascript
 {
   // The port servo will listen for requests on.
   "port": 80,
